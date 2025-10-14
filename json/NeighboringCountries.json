@@ -1,0 +1,105 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GeoDataSource",
+    "description": "GeoDataSource™ Neighboring Countries Web Service is a REST API enables user to lookup the associated land border countries (the neighboring countries) based on the input of country code in ISO3166-2 format. It will return the result in either JSON or XML containing the information of the neighboring countries code and name. Visit https://geodatasource.com/web-service/neighboring-countries for further information.",
+    "version": "2",
+    "contact": {
+		"name": "GeoDataSource",
+		"url": "https://github.com/geodatasource/geodatasource-openapi"
+	}
+  },
+  "servers": [
+    {
+      "url": "https://api.geodatasource.com"
+    }
+  ],
+  "paths": {
+    "/v2/neighboring-countries": {
+      "get": {
+        "summary": "Neighboring Countries",
+        "description": "Get neighboring countries by ISO3166-2 country code.",
+        "operationId": "neighboringCountries",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "(required) API key."
+          },
+          {
+            "name": "country_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "US"
+            },
+            "description": "(required) ISO3166-2 Country code."
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "json"
+            },
+            "description": "(optional) Return the result in json (default) or xml format.\nValid values: json | xml"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get response from Neighboring Countries lookup",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "country_code": {
+                        "type": "string",
+                        "example": "CA"
+                      },
+                      "country_name": {
+                        "type": "string",
+                        "example": "Canada"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "country_code": "CA",
+                      "country_name": "Canada"
+                    },
+                    {
+                      "country_code": "MX",
+                      "country_name": "Mexico"
+                    }
+                  ]
+                },
+                "examples": {
+                  "Neighboring Countries": {
+                    "value": [
+                      {
+                        "country_code": "CA",
+                        "country_name": "Canada"
+                      },
+                      {
+                        "country_code": "MX",
+                        "country_name": "Mexico"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

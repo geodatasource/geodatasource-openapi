@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: GeoDataSource Location Search
+  description: GeoDataSource™ Location Search Web Service is a REST API enable user to lookup for a city by using latitude and longitude coordinate. It will return the result in either JSON or XML containing the information of country, region, city, latitude and longitude. Visit https://geodatasource.com/web-service/location-search for further information.
+  version: 2
+  contact: 
+    name: GeoDataSource
+    url: https://github.com/geodatasource/geodatasource-openapi
+servers:
+  - url: https://api.geodatasource.com
+paths:
+  /v2/city:
+    get:
+      summary: Location Search
+      description: Get City name by using latitude and longitude
+      operationId: locationSearch
+      parameters:
+        - name: key
+          in: query
+          required: true
+          schema:
+            type: string
+          description: (required) API key.
+        - name: lat
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "37.3861"
+          description: (required) Latitude of a location.
+        - name: lng
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "-122.084"
+          description: (required) Longitude of a location.
+        - name: format
+          in: query
+          schema:
+            type: string
+            example: json
+          description: |-
+            (optional) Return the result in json (default) or xml format.
+            Valid values: json | xml
+      responses:
+        "200":
+          description: Get response from longitude latitude lookup
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  city:
+                    type: string
+                    example: Mountain View
+                  country:
+                    type: string
+                    example: US
+                  currency_code:
+                    type: string
+                    example: USD
+                  currency_name:
+                    type: string
+                    example: United States Dollar
+                  currency_symbol:
+                    type: string
+                    example: $
+                  distance_km:
+                    type: number
+                    example: 0.0001
+                  latitude:
+                    type: number
+                    example: 37.3861
+                  longitude:
+                    type: number
+                    example: -122.084
+                  region:
+                    type: string
+                    example: California
+                  sunrise:
+                    type: string
+                    example: 07:14
+                  sunset:
+                    type: string
+                    example: 18:33
+                  time_zone:
+                    type: string
+                    example: -08:00
+              examples:
+                Location Search:
+                  value:
+                    city: Mountain View
+                    country: US
+                    currency_code: USD
+                    currency_name: United States Dollar
+                    currency_symbol: $
+                    distance_km: 0.0001
+                    latitude: 37.3861
+                    longitude: -122.084
+                    region: California
+                    sunrise: 07:14
+                    sunset: 18:33
+                    time_zone: -08:00
+
